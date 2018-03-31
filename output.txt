@@ -1,0 +1,4 @@
+player 98 56 0.4 0.7
+monster 77 34 0.1 0.4
+monster 9 18 0.7 0.2 
+player 100 23 0.9 0.6

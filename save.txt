@@ -1,0 +1,28 @@
+Personagem: 
+Tipo: Player
+Posicao: ( 0.629913 ; 0.789368 )
+Forca: 52
+Vida: 100
+
+
+Personagem: 
+Tipo: Player
+Posicao: ( 0.0564575 ; 0.211853 )
+Forca: 63
+Vida: 100
+
+
+Personagem: 
+Tipo: Monster
+Posicao: ( 0.143402 ; 0.0555115 )
+Forca: 82
+Vida: 100
+
+
+Personagem: 
+Tipo: Monster
+Posicao: ( 0.674591 ; 0.467377 )
+Forca: 42
+Vida: 100
+
+
