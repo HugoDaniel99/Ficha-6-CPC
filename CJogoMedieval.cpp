@@ -22,8 +22,11 @@ CJogoMedieval::CJogoMedieval(int nPlayers, int nMonsters){
 		ppersonagem.x=rand() / (RAND_MAX + 1.);  // ppersonagem.x=(rand()%10)/10.0f);
 		ppersonagem.y=rand() / (RAND_MAX + 1.);  // ppersonagem.y=(rand()%10)/10.0f);
 		
+		//(double) (rand() % 11) / 10; -->podia se fazer assim
+		
 		//Para fazer com que um número a strength do personagem receba um valor aleatório entre 40 e 100, fazemos:
 		ppersonagem.strength=rand()%(max-min + 1) + min;
+		// OU: 40 +rand () % 61;
 		
 		//Para testar a função findWeakestMonster()
 		ppersonagem.health=rand()%(maxhp-minhp + 1) + minhp;
@@ -105,8 +108,9 @@ void CJogoMedieval::saveGame(const char *filename){
 }
 
 void CJogoMedieval::loadGame(const char *filename){
-	
 	CHARACTER load;
+	string temp;
+	
 	ifstream fich (filename); //Não fazer fich.open (filename) --> ifstream já abre o ficheiro
 	
 	if (!fich) {
@@ -116,9 +120,23 @@ void CJogoMedieval::loadGame(const char *filename){
 	
 	else{
 		while(!fich.eof()){
+
+		//	streampos x = fich.tellg();
+			/*
+			fich >> temp;
+			
+			cout << "temp.size()=" << temp.size() << endl;
+			if (temp.size()==1) return;
+			cin >> temp;
+			*/
+		//	fich.seekg(x);
+			
+			
 			fich>>load;
+					
 			if(!load.tipo.empty()){
 				characters.push_back(load);
+				//cout <<" #  -" << load.tipo << "-" <<endl;
 				}
 		  }
 	}
@@ -129,43 +147,51 @@ void CJogoMedieval::loadGame(const char *filename){
 //d) Implemente o membro-função CHARACTER findWeakestMonster(int maxHealth);
 //que retorna o monstro mais fraco, tendo no máximo maxHealth de health. 
 
-//Nao esta a funcionar!!!
-
-//void CJogoMedieval::findWeakestMonster(int maxHealth){
+CHARACTER CJogoMedieval::findWeakestMonster(int maxHealth){
 	
+int weakestIdx=-1;
+int weakestStrength;
 
-/*for(unsigned int i=0;i<characters.size();i++){
-	if ( (characters[i].tipo) != "Player") {
-		for( int k=0;k<characters.size();k++)
-			CHARACTER weakest=characters[characters.size()];
-			if( characters[k]< ( characters[characters.size()] ) ){
-			weakest=characters[k];
-				}
-		if(weakest.health>maxHealth){
-		cout<<"Monstro mais fraco:"<<endl;
-    	cout<<"Personagem: "<<endl<<"Tipo: "<<weakest.tipo<<endl<<"Posicao: "<<"( "<<weakest.x<<" ; "<<weakest.y<<" )"<<endl<<"Forca: "<<weakest.strength
-	    <<endl<<"Vida: "<<weakest.health<<endl;	
-		}
-	    
-		else{
-		//CJogoMedieval j4 (0,3); int maxhp;
-		cout<<"\n Nao ha nenhum monstro dentro do limite estabelecido!";
-		//cout<<"Introduza uma max health: ";
-		//cin>>maxhp;
-		//j4.findWeakestMonster(maxhp);
+
+for(unsigned int i=0;i<characters.size();i++){
+
+	if ( (characters[i].tipo) == "Monster") {
+		if (characters[i].health<=maxHealth){
+			if (weakestIdx==-1)	
+			{
+				weakestIdx=i;
+				weakestStrength=characters[i].strength;
 			}
-		
+			else{
+				if (weakestStrength>characters[i].strength) {
+					weakestIdx=i;
+					weakestStrength=characters[i].strength;
+				}
+			}
 		}
 	}
-}*/
+	if (weakestIdx>-1) return characters[weakestIdx];
+	
 
-/*for(unsigned int l=0;l<characters.size();l++){
-	CHARACTER weakest=characters.at(characters.size());
-	if( characters.at(l ) < ( characters.at(characters.size()) ){
-		weakest=characters.at(l);
-	}*/
-	
-	
+	if ( (characters[i].tipo) == "Monster") {
+		if (weakestIdx==-1)	
+		{
+			weakestIdx=i;
+			weakestStrength=characters[i].strength;
+		}
+		else{
+			if (weakestStrength>characters[i].strength) {
+				weakestIdx=i;
+				weakestStrength=characters[i].strength;
+			}
+		}
+	}
+	if (weakestIdx>-1) return characters[weakestIdx];
+}
+}
+
+
+
 
 
 
